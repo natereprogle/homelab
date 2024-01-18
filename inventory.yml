@@ -1,0 +1,32 @@
+# My primary server is named Hermes because he's a speedy boi
+hermes:
+  hosts:
+    proxmox:
+      ansible_host: 10.2.1.100
+    adguardhome:
+      ansible_host: 10.2.1.101
+    scrypted:
+      ansible_host: 10.2.1.106
+    docker:
+      ansible_host: 10.2.1.107
+    grafana:
+      ansible_host: 10.2.1.108
+
+# My secondary server is named Nyx. In Greek mythology, Nyx is the goddess and personification of the night, playing on the fact that I'm always losing sleep by working on this crap at night :')
+nyx:
+  hosts:
+    proxmox:
+      ansible_host: 10.2.1.10
+    pterodactyl:
+      ansible_host: 10.2.1.11
+    minecraft:
+      ansible_host: 10.2.1.14
+    mariadb:
+      ansible_host: 10.2.1.15
+
+# I had a third server, Ananke, who, in Greek mythology, was the goddess of necessity, compulsion, and inevitability.
+# This plays on the fact that I am compulsed to constantly buy crap for my homelab, and that it's innevitable that it will expand.
+# I also had a fourth server which is currently dead, which I originally named Hades because it had died once already and randomly came back to life lol. Then it died again without warning :')
+# I have no reason to add these comments, it's just a fun fact. I love naming my servers things like this because it's funny to me.
+
+# I've merged many of my workloads into three servers, one of which is a Windows PC that I do not plan on automating as it is not necessary to do so, so it is not listed here.
