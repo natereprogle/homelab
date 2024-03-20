@@ -47,8 +47,8 @@
 
     - name: Create the /etc/promtail/config.yml file
       vars:
-        loki_ip_address: { { loki_ip_address | default('127.0.0.1') } }
-        loki_port: { { loki_port | default('3100') } }
+        loki_ip_address: {{ loki_ip_address | default('127.0.0.1') }}
+        loki_port: {{ loki_port | default('3100') }}
       template:
         src: promtail.yml.j2
         dest: /etc/promtail/config.yml
