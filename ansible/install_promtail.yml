@@ -1,32 +1,71 @@
 ---
-
 - hosts: all
   become: true
   tasks:
-  - name: Install prerequisites
-    apt:
-      name:
-        - apt-transport-https
-        - software-properties-common
-        - wget
-      state: latest
-      update_cache: true
+    - name: Install prerequisites
+      apt:
+        name:
+          - apt-transport-https
+          - software-properties-common
+          - wget
+        state: latest
+        update_cache: true
 
-  - name: Make keyrings directory
-    become: true
-    file:
-      path: /etc/apt/keyrings
-      state: directory
+    - name: Make keyrings directory
+      file:
+        path: /etc/apt/keyrings
+        state: directory
 
-  - name: Add Grafana GPG key to keyring
-    command: wget -q -O - https://apt.grafana.com/gpg.key | gpg --dearmor | sudo tee /etc/apt/keyrings/grafana.gpg > /dev/null
+    - name: Add Grafana GPG key to keyring
+      command: wget -q -O - https://apt.grafana.com/gpg.key | gpg --dearmor | sudo tee /etc/apt/keyrings/grafana.gpg > /dev/null
 
-  - name: Add Grafana repo to sources
-    become: true
-    command: echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+    - name: Add Grafana repo to sources
+      command: echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
 
-  - name: Install promtail
-    apt:
-      name: promtail
-      state: latest
-      update_cache: true
+    - name: Install promtail
+      apt:
+        name: promtail
+        state: latest
+        update_cache: true
+
+    - name: Stop promtail service temporarily
+      service:
+        name: promtail
+        state: stopped
+
+    - name: Ad the promtail user to the adm group
+      user:
+        name: promtail
+        group: adm
+        state: present
+
+    - name: Take ownership of /tmp/positions.yml
+      file:
+        path: /tmp/positions.yml
+        owner: promtail
+        state: present
+
+    - name: Create the /etc/promtail/config.yml file
+      vars:
+        loki_ip_address: { { loki_ip_address | default('127.0.0.1') } }
+        loki_port: { { loki_port | default('3100') } }
+      template:
+        src: promtail.yml.j2
+        dest: /etc/promtail/config.yml
+        mode: 0644
+
+    - name: Edit the ExecStart of the service to include the host name
+      lineinfile:
+        path: /etc/systemd/system/promtail.service
+        regexp: '^ExecStart=/usr/bin/promtail -config\.file=/etc/promtail/config\.yml$'
+        line: ExecStart=/usr/bin/promtail -config.file /etc/promtail/config.yml -config.expand-env=true --client.external-labels=host=%H
+        state: present
+
+    - name: Reload systemd
+      systemd:
+        daemon_reload: yes
+
+    - name: Start the promtail service
+      service:
+        name: promtail
+        state: started
