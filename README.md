@@ -19,10 +19,10 @@ Before using any of these commands, be sure to modify the `ansible.cfg` file to 
 
 ## Install Promtail
 
-You can define the loki variables directly in the command
+You can define the loki variables directly in the command</br>
 `ansible-playbook -e loki_ip_address=<loki_ip> -e loki_port=<loki_port> ./ansible/install_promtail.yml`
 
-Or, you can define them in a YAML or JSON file and run the command this way:
+Or, you can define them in a YAML or JSON file and run the command this way</br>
 `ansible-playbook -e @<your env file> ./ansible/install_promtail.yml`
 
 If the variables aren't provided, they will default to `127.0.0.1` and `3100`, respectively.
