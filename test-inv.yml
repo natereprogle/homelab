@@ -1,0 +1,4 @@
+test:
+  hosts:
+    test:
+      ansible_host: 10.2.1.12
