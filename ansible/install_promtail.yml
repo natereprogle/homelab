@@ -2,26 +2,6 @@
 - hosts: all
   become: true
   tasks:
-    - name: Install prerequisites
-      apt:
-        name:
-          - apt-transport-https
-          - software-properties-common
-          - wget
-        state: latest
-        update_cache: true
-
-    - name: Make keyrings directory
-      file:
-        path: /etc/apt/keyrings
-        state: directory
-
-    - name: Add Grafana GPG key to keyring
-      shell: wget -q -O - https://apt.grafana.com/gpg.key | gpg --dearmor | sudo tee /etc/apt/keyrings/grafana.gpg > /dev/null
-
-    - name: Add Grafana repo to sources
-      shell: echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
-
     - name: Install promtail
       apt:
         name: promtail

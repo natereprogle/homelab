@@ -1,0 +1,10 @@
+{
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/playbook": [
+      "file:///home/natereprogle/Documents/homelab/ansible/install_promtail.yml",
+      "file:///home/natereprogle/Documents/homelab/ansible/configure_grafana_repo.yml",
+      "file:///home/natereprogle/Documents/homelab/ansible/install_grafana.yml",
+      "file:///home/natereprogle/Documents/homelab/ansible/install_node_exporter.yml"
+    ]
+  }
+}

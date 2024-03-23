@@ -1,0 +1,45 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Download binaries
+      shell: wget https://github.com/prometheus/node_exporter/releases/download/v1.7.0/node_exporter-1.7.0.linux-amd64.tar.gz
+
+    - name: Extract binaries
+      shell: tar xvfz node_exporter-*.tar.gz
+
+    - name: Move binaries
+      shell: sudo mv node_exporter-1.7.0.linux-amd64/node_exporter /usr/local/bin
+
+    - name: Remove temp files
+      shell: rm -rf node_exporter*
+
+    - name: Create user
+      user:
+        name: node_exporter
+        shell: /usr/false
+        state: present
+
+    - name: Create service file
+      template:
+        src: node_exporter.service.j2
+        dest: /etc/systemd/system/node_exporter.service
+
+    - name: Enable and start service
+      service:
+        name: node_exporter
+        enabled: yes
+        state: started
+        daemon_reload: yes
+
+    - name: Output debug message
+      debug:
+        msg: "Node Exporter has been installed on all servers, however it isn't configured in Prometheus yet. This is currently a manual task, please add the IP addresses of all node exporter servers to the /etc/prometheus/prometheus.yml file on your prometheus server."
+
+    # Here for potential future use
+    # - name: Get the internal IP of all servers this playbook ran on, excluding localhost
+    #  shell: ip a | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'
+    #  register: internal_ips
+
+    # - name: Edit the prometheus.yml file on the prometheus host
+    #  run_once: true
