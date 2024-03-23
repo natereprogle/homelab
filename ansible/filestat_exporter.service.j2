@@ -13,19 +13,3 @@ ExecStart=/usr/local/bin/filestat_exporter -config.file=/usr/local/bin/filestat.
 
 [Install]
 WantedBy=multi-user.target
-
-sudo nano /usr/local/bin/filestat.yml
-
-exporter:
-  # Optional network parameters
-  listen_address: ':9943'
-  #metrics_path: /metrics
-
-  # Optional working directory - overridden by parameter '-path.cwd'
-  working_directory: "/etc"
-  # Default enable/disable of metrics - overridden if not set by parameter '-metric.*'
-  enable_crc32_metric: true
-  # enable_nb_line_metric: false
-  # list of patterns to apply - metrics can be enable/disabled for each group
-  files:
-    - patterns: ["passwd","shadow"]
