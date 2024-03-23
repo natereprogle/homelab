@@ -26,3 +26,22 @@ Or, you can define them in a YAML or JSON file and run the command this way</br>
 `ansible-playbook -e @<your env file> ./ansible/install_promtail.yml`
 
 If the variables aren't provided, they will default to `127.0.0.1` and `3100`, respectively.
+
+## Install literally anything else
+All other apps do not requier any extra variables (yet). However, this will change. For now, to install other apps:</br>
+`ansible-playbook ./ansible/install_<app>.yml`
+
+# Prerequisites
+This collection assumes `amd64` CPU architectures and Debian-based operating systems with the `apt` package manager installed. Do not proceed if this doesn't apply to you.
+
+You must have an SSH key on each server that allows you to SSH without intervention (So, no passphrase protected keys). If this is a problem for you, you can either create a new temporary key or install everything manually. There are workarounds for using passphrase protected keys, but they aren't simple.
+
+For certain apps, `apt` repos must be configured. The list of applications and necessary playbooks to run prior to installation are below.
+
+| Application       | Playbook                   |
+|-------------------|----------------------------|
+| Filestat Exporter | N/A                        |
+| Grafana           | configure_grafana_repo.yml |
+| Loki              | configure_grafana_repo.yml |
+| Node Exporter     | N/A                        |
+| Promtail          | configure_grafana_repo.yml |
