@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adguardhome-sync
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: adguardhome-sync
+  template:
+    metadata:
+      labels:
+        name: adguardhome-sync
+    spec:
+      containers:
+        - args:
+            - run
+          env:
+            - name: API_PORT
+              value: "8080"
+            - name: CRON
+              value: "*/10 * * * *"
+            - name: LOG_LEVEL
+              value: info
+            - name: ORIGIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: adguardhome-credentials
+            - name: ORIGIN_INSECURE_SKIP_VERIFY
+              value: "true"
+            - name: ORIGIN_URL
+              value: https://10.2.1.101
+            - name: ORIGIN_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: username
+                  name: adguardhome-credentials
+            - name: REPLICA1_INSECURE_SKIP_VERIFY
+              value: "true"
+            - name: REPLICA1_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: adguardhome-credentials
+            - name: REPLICA1_URL
+              value: https://10.2.1.111
+            - name: REPLICA1_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: username
+                  name: adguardhome-credentials
+            - name: RUNONSTART
+              value: "true"
+          image: ghcr.io/bakito/adguardhome-sync
+          name: adguardhome-sync
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      restartPolicy: Always
