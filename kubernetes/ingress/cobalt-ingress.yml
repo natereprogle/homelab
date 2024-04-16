@@ -17,7 +17,7 @@ spec:
       port: 80
     middlewares:
     - name: redirect-https
-      namespace: kube-system
+      namespace: cobalt
   - kind: Rule
     match: Host(`api.cobalt.reprogle.org`)
     priority: 10
@@ -32,7 +32,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: redirect-https
-  namespace: kube-system
+  namespace: cobalt
 spec:
   redirectScheme:
     scheme: https
