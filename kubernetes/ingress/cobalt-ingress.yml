@@ -1,7 +1,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: cobalt-ingress
+  name: cobalt-ingress-secure
   namespace: cobalt
   labels:
     app: cobalt
@@ -29,7 +29,7 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: cobalt-ingress
+  name: cobalt-ingress-web
   namespace: cobalt
   labels:
     app: cobalt
@@ -45,7 +45,6 @@ spec:
       port: 80
     middlewares:
     - name: redirect-https
-      namespace: cobalt
   tls:
     certResolver: default
 
@@ -59,4 +58,3 @@ spec:
   redirectScheme:
     scheme: https
     permanent: true
-    port: "443"
