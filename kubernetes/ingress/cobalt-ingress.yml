@@ -1,0 +1,25 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: cobalt-ingress
+  namespace: cobalt
+  labels:
+    app: cobalt
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - kind: Rule
+    match: Host(`cobalt.reprogle.org`)
+    priority: 10
+    services:
+    - name: cobalt-server
+      port: 9001
+  - kind: Rule
+    match: Host(`api.cobalt.reprogle.org`)
+    priority: 10
+    services:
+    - name: cobalt-api
+      port: 9000
+  tls:
+    certResolver: default

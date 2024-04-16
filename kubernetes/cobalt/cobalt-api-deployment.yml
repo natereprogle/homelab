@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cobalt-api
+  namespace: cobalt
+spec:
+  selector:
+    matchLabels:
+      app: cobalt-api
+  template:
+    metadata:
+      labels:
+        app: cobalt-api
+    spec:
+      containers:
+      - name: cobalt-api
+        image: ghcr.io/wukko/cobalt:7
+        restartPolicy: OnFailure
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 9000
+        env:
+        - name: API_URL
+          value: "https://api.cobalt.reprogle.org"
+        - name: API_NAME
+          value: "us-n1"
