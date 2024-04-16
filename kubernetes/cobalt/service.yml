@@ -10,9 +10,6 @@ spec:
   - port: 80
     targetPort: 9001
     name: http
-  - port: 443
-    targetPort: 9001
-    name: https
 
 ---
 
@@ -28,6 +25,3 @@ spec:
   - port: 80
     targetPort: 9000
     name: http
-  - port: 443
-    targetPort: 9000
-    name: https
