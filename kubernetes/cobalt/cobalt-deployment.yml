@@ -15,7 +15,6 @@ spec:
       containers:
       - name: cobalt
         image: ghcr.io/wukko/cobalt:7
-        restartPolicy: OnFailure
         resources:
           limits:
             memory: "256Mi"
