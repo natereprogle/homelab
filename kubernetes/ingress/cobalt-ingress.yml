@@ -39,7 +39,7 @@ spec:
   routes:
   - kind: Rule
     match: Host(`cobalt.reprogle.org`)
-    priority: 1
+    priority: 11
     services:
     - name: cobalt-server
       port: 80
