@@ -39,14 +39,12 @@ spec:
   routes:
   - kind: Rule
     match: Host(`cobalt.reprogle.org`)
-    priority: 11
+    priority: 1
     services:
     - name: cobalt-server
       port: 80
     middlewares:
     - name: redirect-https
-  tls:
-    certResolver: default
 
 ---
 apiVersion: traefik.containo.us/v1alpha1
