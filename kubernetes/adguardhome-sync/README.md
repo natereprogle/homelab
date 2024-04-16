@@ -1,0 +1,1 @@
+Simple deployment for AdGuard Home Sync, which keeps my multiple instances of AdGuard Home the same (Changes in one reflect in the other, so I only ever have to edit a single instance).
