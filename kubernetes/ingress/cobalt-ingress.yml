@@ -15,15 +15,37 @@ spec:
     services:
     - name: cobalt-server
       port: 80
-    middlewares:
-    - name: redirect-https
-      namespace: cobalt
   - kind: Rule
     match: Host(`api.cobalt.reprogle.org`)
     priority: 10
     services:
     - name: cobalt-api
       port: 80
+  tls:
+    certResolver: default
+
+---
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: cobalt-ingress
+  namespace: cobalt
+  labels:
+    app: cobalt
+spec:
+  entryPoints:
+  - web
+  routes:
+  - kind: Rule
+    match: Host(`cobalt.reprogle.org`)
+    priority: 10
+    services:
+    - name: cobalt-server
+      port: 80
+    middlewares:
+    - name: redirect-https
+      namespace: cobalt
   tls:
     certResolver: default
 
