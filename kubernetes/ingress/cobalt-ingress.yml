@@ -1,3 +1,5 @@
+# Default configuration for Cobalt. This configures an IngressRoute on the websecure port (443) and forwards it to port 80 of the cobalt service. Same applies for the API
+# We use internal DNS for this (AdGuard Home DNS Rewrites), cobalt.reprogle.org and api.cobalt.reprogle.org are not publicly available DNS records.
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
@@ -25,7 +27,7 @@ spec:
     certResolver: default
 
 ---
-
+# This IngressRoute exists to force http to be https. We don't place the API here because its value is hardcoded in the environment variables, so we don't need to worry
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
@@ -47,6 +49,7 @@ spec:
     - name: redirect-https
 
 ---
+# This middleware redirects http to https
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:

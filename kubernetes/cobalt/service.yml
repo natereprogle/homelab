@@ -1,3 +1,4 @@
+# Service for the cobalt frontend server. It runs HTTP, so we use port 80 as the inbound port
 apiVersion: v1
 kind: Service
 metadata:
@@ -12,7 +13,7 @@ spec:
     name: http
 
 ---
-
+# Service for the cobalt backend server. It runs HTTP, so we use port 80 as the inbound port
 apiVersion: v1
 kind: Service
 metadata:
