@@ -14,12 +14,12 @@ spec:
     priority: 10
     services:
     - name: cobalt-server
-      port: 443
+      port: 80
   - kind: Rule
     match: Host(`api.cobalt.reprogle.org`)
     priority: 10
     services:
     - name: cobalt-api
-      port: 443
+      port: 80
   tls:
     certResolver: default
