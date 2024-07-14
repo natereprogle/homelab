@@ -4,7 +4,7 @@ metadata:
   name: adguardhome-sync
 subsets:
   - addresses:
-      - ip: 10.2.1.111
+      - ip: 10.2.1.13
       - ip: 10.2.1.101
     ports:
       - port: 443

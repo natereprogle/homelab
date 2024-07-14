@@ -44,7 +44,7 @@ spec:
                   key: password
                   name: adguardhome-credentials
             - name: REPLICA1_URL
-              value: https://10.2.1.111
+              value: https://10.2.1.13
             - name: REPLICA1_USERNAME
               valueFrom:
                 secretKeyRef:
