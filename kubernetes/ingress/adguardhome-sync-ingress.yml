@@ -1,0 +1,14 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: adguardhome-sync
+spec:
+  entryPoints:
+  - web
+  routes:
+  - kind: Rule
+    match: Host(`aghs.reprogle.org`)
+    priority: 10
+    services:
+    - name: adguardhome-sync
+      port: 8080
