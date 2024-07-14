@@ -1,0 +1,55 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Stop Grafana Agent Flow service
+      ansible.builtin.systemd_service:
+        name: grafana-agent-flow.service
+        state: stopped
+
+    - name: Install alloy
+      ansible.builtin.apt:
+        name: alloy
+        state: latest
+        update_cache: true
+
+    - name: Stop Alloy
+      ansible.builtin.systemd_service:
+        name: alloy.service
+        state: stopped
+
+    - name: Update Alloy service
+      ansible.builtin.template:
+        src: alloy.service.j2
+        dest: /lib/systemd/system/alloy.service
+        force: true
+
+    - name: Migrate old data
+      ansible.builtin.copy:
+        src: /var/lib/grafana-agent-flow/
+        dest: /var/lib/alloy/data/
+        owner: alloy
+        force: true
+        mode: u+rwx
+
+    - name: Copy old configuration
+      ansible.builtin.copy:
+        content: /etc/grafana-agent-flow.river
+        dest: /etc/alloy/config.alloy
+        owner: alloy
+        force: true
+
+    - name: Restart Alloy service
+      ansible.builtin.systemd_service:
+        name: alloy
+        state: started
+        daemon_reload: yes
+
+    - name: Uninstall Grafana Agent Flow
+      ansible.builtin.apt:
+        name: grafana-agent-flow
+        state: absent
+
+    - name: Output debug message
+      debug:
+        msg: "Head to the IP of this server (http://<ip address>:12345) to validate that Grafana Alloy picked up your configuration! Congrats on the migration :)"
