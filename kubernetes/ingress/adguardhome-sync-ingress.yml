@@ -5,7 +5,7 @@ metadata:
   namespace: default
 spec:
   entryPoints:
-  - web
+  - websecure
   routes:
   - kind: Rule
     match: Host(`aghs.reprogle.org`)
@@ -13,3 +13,5 @@ spec:
     services:
     - name: adguardhome-sync
       port: 8080
+  tls:
+    certResolver: default
