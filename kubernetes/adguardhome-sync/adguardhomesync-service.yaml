@@ -15,8 +15,8 @@ metadata:
   name: adguardhome-sync
 spec:
   ports:
-    - name: "8080"
-      port: 8080
-      targetPort: 8080
+  - port: 8080
+    targetPort: 8080
+    name: http
   selector:
     app: adguardhome-sync
