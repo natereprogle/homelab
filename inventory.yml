@@ -1,13 +1,10 @@
 # My primary server is named Hermes because he's a speedy boi
-# I've excluded the Proxmox host itself because my host has a Realtek R8168 NIC.
-# The driver for that isn't preinstalled with Proxmox or Debian, and gets removed on every apt update
-# Therefore, I can't ever update it without planning for downtime to reinstall the drivers manually
 hermes:
   hosts:
+    proxmox:
+      ansible_host: 10.2.1.100
     adguardhome:
       ansible_host: 10.2.1.101
-    scrypted:
-      ansible_host: 10.2.1.106
     docker:
       ansible_host: 10.2.1.107
     grafana:
@@ -20,8 +17,6 @@ nyx:
       ansible_host: 10.2.1.10
     pterodactyl:
       ansible_host: 10.2.1.11
-    minecraft:
-      ansible_host: 10.2.1.14
     mariadb:
       ansible_host: 10.2.1.15
 
