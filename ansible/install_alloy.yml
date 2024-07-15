@@ -26,7 +26,7 @@
 
     - name: Migrate old data
       ansible.builtin.copy:
-        src: /var/lib/grafana-agent-flow/
+        remote_src: /var/lib/grafana-agent-flow/
         dest: /var/lib/alloy/data/
         owner: alloy
         force: true
@@ -34,7 +34,7 @@
 
     - name: Copy old configuration
       ansible.builtin.copy:
-        content: /etc/grafana-agent-flow.river
+        remote_src: /etc/grafana-agent-flow.river
         dest: /etc/alloy/config.alloy
         owner: alloy
         force: true
