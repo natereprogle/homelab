@@ -23,6 +23,6 @@ spec:
         - containerPort: 9001
         env:
         - name: API_URL
-          value: "http://api.cobalt.reprogle.org"
+          value: "https://api.cobalt.reprogle.org"
         - name: WEB_URL
-          value: "http://cobalt.reprogle.org"
+          value: "https://cobalt.reprogle.org"
