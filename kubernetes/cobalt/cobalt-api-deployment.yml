@@ -23,6 +23,6 @@ spec:
         - containerPort: 9000
         env:
         - name: API_URL
-          value: "https://api.cobalt.reprogle.org"
+          value: "http://api.cobalt.reprogle.org"
         - name: API_NAME
           value: "us-n1"
