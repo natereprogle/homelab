@@ -4,5 +4,5 @@ metadata:
   name: "lb-pool"
 spec:
   blocks:
-  - start: "10.2.1.200"
+  - start: "10.2.1.201"
     stop: "10.2.1.253"
