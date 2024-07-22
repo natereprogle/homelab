@@ -19,6 +19,8 @@ nyx:
       ansible_host: 10.2.1.11
     mariadb:
       ansible_host: 10.2.1.15
+    adguardhome:
+      ansible_host: 10.2.1.13
 
 # I had a third server, Ananke, who, in Greek mythology, was the goddess of necessity, compulsion, and inevitability.
 # This plays on the fact that I am compulsed to constantly buy crap for my homelab, and that it's innevitable that it will expand.

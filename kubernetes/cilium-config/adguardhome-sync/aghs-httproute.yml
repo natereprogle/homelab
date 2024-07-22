@@ -1,0 +1,19 @@
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: aghs-httproute
+  namespace: default
+spec:
+  hostnames:
+    - aghs.reprogle.org
+  parentRefs:
+    - name: aghs-gateway
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: adguardhome-sync
+          port: 8080

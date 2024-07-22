@@ -1,0 +1,40 @@
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: cobalt-httproute
+  namespace: cobalt
+spec:
+  hostnames:
+    - cobalt.reprogle.org
+  parentRefs:
+    - name: cobalt-gateway
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: cobalt-server
+          port: 80
+
+
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: cobalt-api-httproute
+  namespace: cobalt
+spec:
+  hostnames:
+    - api.cobalt.reprogle.org
+  parentRefs:
+    - name: cobalt-gateway
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: cobalt-api
+          port: 80

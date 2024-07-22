@@ -1,0 +1,33 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: cobalt-gateway
+  namespace: cobalt
+spec:
+  gatewayClassName: cilium
+  listeners:
+    - hostname: "cobalt.reprogle.org"
+      name: cobalt-listener
+      port: 443
+      protocol: HTTPS
+      tls:
+        certificateRefs:
+          - kind: Secret
+            name: wildcard-cert
+            namespace: cobalt
+      allowedRoutes:
+        namespaces:
+          from: All
+    - hostname: "api.cobalt.reprogle.org"
+      name: cobalt-api-listener
+      port: 443
+      protocol: HTTPS
+      tls:
+        certificateRefs:
+          - kind: Secret
+            name: wildcard-cert
+            namespace: cobalt
+      allowedRoutes:
+        namespaces:
+          from: All

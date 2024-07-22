@@ -50,7 +50,7 @@ spec:
                 secretKeyRef:
                   key: username
                   name: adguardhome-credentials
-            - name: RUNONSTART
+            - name: RUN_ON_START
               value: "true"
           image: ghcr.io/bakito/adguardhome-sync
           name: adguardhome-sync
@@ -59,9 +59,9 @@ spec:
               protocol: TCP
           resources:
             limits:
-              cpu: "1"
+              cpu: "100m"
               memory: "512Mi"
             requests:
-              cpu: "0.5"
+              cpu: "50m"
               memory: "256Mi"
       restartPolicy: Always
