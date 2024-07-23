@@ -8,7 +8,7 @@ spec:
   hostnames:
     - argo.reprogle.org
   parentRefs:
-    - name: argocd
+    - name: argocd-gateway
   rules:
     - backendRefs:
         - name: argocd-server

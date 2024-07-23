@@ -2,7 +2,7 @@
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: Gateway
 metadata:
-  name: argocd
+  name: argocd-gateway
   namespace: argocd
 spec:
   gatewayClassName: cilium
