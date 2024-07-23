@@ -6,6 +6,6 @@ metadata:
 spec:
   interfaces:
   - ^eth[0-9]+
-  - en+
+  - ^en.*
   externalIPs: true
   loadBalancerIPs: true
