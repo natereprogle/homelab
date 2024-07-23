@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cobalt-certs
+  namespace: cobalt
+spec:
+  secretName: cobalt-cert
+  issuerRef:
+    name: cloudflare-issuer
+    kind: ClusterIssuer
+  dnsNames:
+    - "cobalt.reprogle.org"
+    - "api.cobalt.reprogle.org"
