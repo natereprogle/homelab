@@ -14,8 +14,4 @@ spec:
       tls:
         certificateRefs:
           - kind: Secret
-            name: wildcard-cert
-            namespace: argocd
-      allowedRoutes:
-        namespaces:
-          from: All
+            name: argocd-server-tls
