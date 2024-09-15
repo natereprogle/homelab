@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: cobalt
-        image: ghcr.io/wukko/cobalt:10
+        image: ghcr.io/imputnet/cobalt:10
         resources:
           limits:
             memory: "256Mi"
