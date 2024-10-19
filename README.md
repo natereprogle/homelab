@@ -1,6 +1,6 @@
 # Homelab Configuration
 
-A collection of Ansible playbooks for my homelab. Currently this is a work in progress, as I've had my homelab for nearly 2 years now and everything has been done manually. I'm converting to Ansible to A) provide easier deployment in the future, and B) be able to spin everything back up in the event of total failure.
+A collection of Ansible playbooks for my homelab. Currently, this is a work in progress, as I've had my homelab for nearly 3 years now and everything has been done manually. I'm converting to Ansible to A) provide easier deployment in the future, and B) be able to spin everything back up in the event of total failure.
 
 ## What this repo _will_ contain
 
@@ -24,11 +24,10 @@ You can define the loki variables directly in the command</br>
 
 Or, you can define them in a YAML or JSON file and run the command this way</br>
 `ansible-playbook -e @<your env file> ./ansible/install_promtail.yml`
-
 If the variables aren't provided, they will default to `127.0.0.1` and `3100`, respectively.
 
 ## Install literally anything else
-All other apps do not requier any extra variables (yet). However, this will change. For now, to install other apps:</br>
+All other apps do not require any extra variables (yet). However, this will change. For now, to install other apps:</br>
 `ansible-playbook ./ansible/install_<app>.yml`
 
 # Prerequisites
@@ -38,10 +37,13 @@ You must have an SSH key on each server that allows you to SSH without intervent
 
 For certain apps, `apt` repos must be configured. The list of applications and necessary playbooks to run prior to installation are below.
 
-| Application       | Playbook                   |
-|-------------------|----------------------------|
-| Filestat Exporter | N/A                        |
-| Grafana           | configure_grafana_repo.yml |
-| Loki              | configure_grafana_repo.yml |
-| Node Exporter     | N/A                        |
-| Promtail          | configure_grafana_repo.yml |
+| Application                       | Playbook                   |
+|-----------------------------------|----------------------------|
+| Filestat Exporter                 | N/A                        |
+| Grafana                           | configure_grafana_repo.yml |
+| Loki                              | configure_grafana_repo.yml |
+| Node Exporter                     | N/A                        |
+| Promtail (Deprecated<sup>1</sup>) | configure_grafana_repo.yml |
+| Alloy                             | configure_grafana_repo.yml |
+
+<sup>1 Promtail has been deprecated in favor of Alloy. However, Alloy is currently configured to *migrate* a Grafana Agent Flow config instead of create a new one. Do not use this yet</sup>
